@@ -1,46 +1,46 @@
-import random as random
+brain_data = {
+    "Prefrontal Cortex": [12, 15, 18, 20, 17],
+    "Motor Cortex": [25, 27, 30, 28, 26],
+    "Visual Cortex": [40, 38, 45, 42, 41],
+    "Hippocampus": [10, 11, 13, 12, 14]
+}
 
-# shorthand for appending
-list = [i for i in range(10)]
-print(list)
-# prints out [0,1,2,3,4,5,6,7,8,9]
+def average_activation(region_data):
+    values = []
+    for i in region_data:
+        values.append(i)
+    average = sum(values)/len(values)
+    return(average)
 
-# counter = 0
-# for i in range(5):
-#     decider = random.randint(1,2)
-#     if decider == 1:
-#         counter += 1
-#         # increment
-#     else:
-#         counter -= 1
-#         # decrement
-#     print (counter)
+def peak_activation(region_data):
+    values = []
+    for i in region_data:
+        for j in region_data:
+            if i < j:
+                if i in values:
+                    while i in values:
+                        values.remove(i)
+            if i > j:
+                values.append(i)
+    for k in values:
+        for h in values:
+            if k < h:
+                if k in values:
+                    while k in values:
+                        values.remove(k)
+            if k > h:
+                values.append(k)
+    return(values[0])
 
-# # item is a loop variable and tuple: 
-# # in list item ("Hello", "Greeting"), item[0] is "Hello" and item[1] is "Greeting"
-# sayings = [("Hello", "Greeting"), ("What's Up", "Greeting"), ("See you", "Goodbye")]
-# for item in sayings:
-#     print(f"{item[0]} is a {item[1]}")
+def summarize_region(region_name, region_data):
+    return(f"Region: {region_name}\nAverage Activation: {average_activation(region_data)}\nPeak Activation: {peak_activation(region_data)}")
 
-# random_int = random.randint(0,10)
-# print(random_int)
-# if random_int > 5:
-#     print(f"{random_int} is greater than 5")
-# elif random_int == 0:
-#     print(f"{random_int} is equal to 0")
-# elif random_int is 5:
-#     print(random_int, "is 5.")
-# else: 
-#     print(f"{random_int} is less than 5")
+def most_active_region(brain_full_data):
+    averages = []
+    for i in brain_full_data:
+        averages.append(average_activation(brain_full_data[i]))
+    return(peak_activation(averages))
 
-
-# random_integers = []
-# for i in range(5):
-#     random_integers.append(random.randint(0,10))
-# print(random_integers)
-# if 6 in random_integers:
-#     print("6")
-# if 7 in random_integers:
-#     print("7")
-# if 6 in random_integers and 7 in random_integers:
-#     print("6 7!")
+# print(summarize_region("PFC", brain_data["Prefrontal Cortex"]))
+print(most_active_region(brain_data))
+print("wefw")
