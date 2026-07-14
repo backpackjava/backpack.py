@@ -48,4 +48,11 @@ print(np.round(z_std_signal))
 # Part 4 - Remove Outliers
 nanned_norm_eeg = normalized_values.copy()
 nanned_norm_eeg[abs(normalized_values) > 3] = np.nan
+
+# Part 5 - Impute Missing Values
+row_means = np.nanmean(nanned_norm_eeg, axis=1)
+mask = np.isnan(nanned_norm_eeg)
+
+nanned_norm_eeg = np.where(mask, row_means[:, None], nanned_norm_eeg)
+
 print(nanned_norm_eeg)
